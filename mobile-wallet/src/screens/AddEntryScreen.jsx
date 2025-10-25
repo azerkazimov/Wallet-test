@@ -43,9 +43,76 @@ export default function AddEntryScreen({ route, navigation }) {
             behavior={Platform.select({ ios: "padding", android: undefined })}
             style={{ flex: 1 }}
         >
-            <Text>Type here your code ...</Text>
-            <Text>You can type your code here...</Text>
+            <View style={{ padding: 16, gap: 12 }}>
+                <View style={styles.switchRow}>
+                    <Pressable
+                        onPress={() => setType("income")}
+                        style={[
+                            styles.switchBtn,
+                            type === "income" && styles.switchActiveGreen,
+                        ]}
+                    >
+                        <Text
+                            style={[
+                                styles.switchText,
+                                type === "income" && styles.switchTextActive,
+                            ]}
+                        >
+                            Доход
+                        </Text>
+                    </Pressable>
+                    <Pressable
+                        onPress={() => setType("expense")}
+                        style={[
+                            styles.switchBtn,
+                            type === "expense" && styles.switchActiveRed,
+                        ]}
+                    >
+                        <Text
+                            style={[
+                                styles.switchText,
+                                type === "expense" && styles.switchTextActive,
+                            ]}
+                        >
+                            Расход
+                        </Text>
+                    </Pressable>
+                </View>
 
+                <TextInput
+                    placeholder="Название (например, Зарплата / Кофе)"
+                    style={styles.input}
+                    value={title}
+                    onChangeText={setTitle}
+                />
+                <TextInput
+                    placeholder="Сумма (например, 12.5)"
+                    keyboardType="decimal-pad"
+                    style={styles.input}
+                    value={amount}
+                    onChangeText={setAmount}
+                />
+                <TextInput
+                    placeholder="Категория (опционально)"
+                    style={styles.input}
+                    value={category}
+                    onChangeText={setCategory}
+                />
+                <TextInput
+                    placeholder="Заметка (опционально)"
+                    style={[
+                        styles.input,
+                        { height: 90, textAlignVertical: "top" },
+                    ]}
+                    multiline
+                    value={notes}
+                    onChangeText={setNotes}
+                />
+
+                <Pressable style={styles.saveBtn} onPress={onSave}>
+                    <Text style={styles.saveText}>Сохранить</Text>
+                </Pressable>
+            </View>
         </KeyboardAvoidingView>
     );
 }
